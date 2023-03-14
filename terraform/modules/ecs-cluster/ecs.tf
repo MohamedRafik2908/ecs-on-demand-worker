@@ -1,7 +1,7 @@
 resource "aws_security_group" "ecs_instance" {
   name = "${var.id}-ecs-instance"
   description = "Security group for ECS instances"
-  vpc_id      = aws_vpc.vpc.id
+  vpc_id      = data.aws_vpc.current_vpc.id
 
   egress {
     from_port   = 0
@@ -19,6 +19,17 @@ data "aws_ssm_parameter" "recommended_ecs_ami" {
   name = "/aws/service/ecs/optimized-ami/amazon-linux-2/recommended"
 }
 
+data "aws_vpc" "current_vpc" {
+  id = "vpc-040e43dcc2a463f94" 
+}
+
+data "aws_subnet_ids" "all" {
+  vpc_id = "${data.aws_vpc.current_vpc.id}"
+
+  tags = {
+    Name = "*priv*"
+  }
+}
 locals {
   recommended_ecs_ami_id = jsondecode(data.aws_ssm_parameter.recommended_ecs_ami.value)
 }
@@ -61,7 +72,7 @@ resource "aws_autoscaling_group" "ecs_asg" {
   min_size = var.ecs_cluster_min_size
   max_size = var.ecs_cluster_max_size
   desired_capacity = 0 # Set to zero, let ECS manage it
-  vpc_zone_identifier = aws_subnet.private_subnets.*.id
+  vpc_zone_identifier = data.aws_subnet_ids.all.ids
   protect_from_scale_in = true
 
   launch_template {

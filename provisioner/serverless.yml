@@ -1,5 +1,5 @@
 # Robocorp On-Demand Worker Provisioner
-service: rc-odw-prov
+service: rc-test-env-prov
 
 frameworkVersion: '3'
 configValidationMode: error
@@ -15,7 +15,7 @@ custom:
 
 provider:
   name: aws
-  stage: dev
+  stage: test
   # default region
   region: us-east-1
   deploymentMethod: direct
@@ -28,7 +28,7 @@ provider:
     serverSideEncryption: AES256
     blockPublicAccess: true
   environment:
-    ODW_ID: rc-odw-1
+    ODW_ID: rc-test-env
     ECR_IMAGE_TAG: v1.0
     WORKER_PROVIDER_CONFIGURATION_SECRET: ${self:provider.environment.ODW_ID}-config
 

@@ -2,7 +2,7 @@
 variable id {
   type = string
   description = "Identifier of this on-demand worker infrastructure. Used to makes resource names unique."
-  default = "rc-odw-1"
+  default = "rc-test-env"
 }
 
 variable aws_region {

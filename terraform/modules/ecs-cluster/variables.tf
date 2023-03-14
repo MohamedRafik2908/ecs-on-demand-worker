@@ -6,7 +6,7 @@ variable id {
 variable ec2_instance_type {
   type = string
   description = "Instance type for EC2 instances powering the cluster"
-  default = "t3a.medium"
+  default = "m5ad.2xlarge"
 }
 
 variable ec2_instance_ami_id {
@@ -24,7 +24,7 @@ variable ecs_cluster_min_size {
 variable ecs_cluster_max_size {
   type = number
   description = "Maximum number of instances in ECS cluster"
-  default = 3
+  default = 1
 }
 
 variable az_count {

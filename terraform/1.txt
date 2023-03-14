@@ -1,0 +1,404 @@
+[0m[1mrandom_password.preshared_secret: Refreshing state... [id=none][0m
+[0m[1mmodule.ecs_cluster_1.data.aws_ssm_parameter.recommended_ecs_ami: Reading...[0m[0m
+[0m[1mmodule.ecs_cluster_1.aws_ecs_cluster.cluster: Refreshing state... [id=arn:aws:ecs:us-east-1:924259784339:cluster/rc-test-cluster-1][0m
+[0m[1maws_ecr_repository.worker_images: Refreshing state... [id=rc-test-worker-images][0m
+[0m[1mmodule.ecs_cluster_1.aws_placement_group.ecs_asg: Refreshing state... [id=rc-test-cluster-1-ecs-instances-placement-group][0m
+[0m[1maws_secretsmanager_secret.configuration_out: Refreshing state... [id=arn:aws:secretsmanager:us-east-1:924259784339:secret:rc-test-config-Xbyu9j][0m
+[0m[1mmodule.ecs_cluster_1.data.aws_vpc.current_vpc: Reading...[0m[0m
+[0m[1mmodule.ecs_cluster_1.data.aws_caller_identity.current: Reading...[0m[0m
+[0m[1mmodule.ecs_cluster_1.data.aws_caller_identity.current: Read complete after 0s [id=924259784339][0m
+[0m[1mmodule.ecs_cluster_1.data.aws_ssm_parameter.recommended_ecs_ami: Read complete after 0s [id=/aws/service/ecs/optimized-ami/amazon-linux-2/recommended][0m
+[0m[1mmodule.ecs_cluster_1.data.aws_vpc.current_vpc: Read complete after 0s [id=vpc-040e43dcc2a463f94][0m
+[0m[1mmodule.ecs_cluster_1.data.aws_subnet_ids.current_subnets: Reading...[0m[0m
+[0m[1mmodule.ecs_cluster_1.data.aws_subnet_ids.current_subnets: Read complete after 0s [id=vpc-040e43dcc2a463f94][0m
+
+Terraform used the selected providers to generate the following execution
+plan. Resource actions are indicated with the following symbols:
+  [32m+[0m create
+[0m
+Terraform will perform the following actions:
+
+[1m  # aws_secretsmanager_secret_version.configuration_out[0m will be created[0m[0m
+[0m  [32m+[0m[0m resource "aws_secretsmanager_secret_version" "configuration_out" {
+      [32m+[0m [0m[1m[0marn[0m[0m            = (known after apply)
+      [32m+[0m [0m[1m[0mid[0m[0m             = (known after apply)
+      [32m+[0m [0m[1m[0msecret_id[0m[0m      = "arn:aws:secretsmanager:us-east-1:924259784339:secret:rc-test-config-Xbyu9j"
+      [32m+[0m [0m[1m[0msecret_string[0m[0m  = (sensitive value)
+      [32m+[0m [0m[1m[0mversion_id[0m[0m     = (known after apply)
+      [32m+[0m [0m[1m[0mversion_stages[0m[0m = (known after apply)
+    }
+
+[1m  # module.ecs_cluster_1.aws_autoscaling_group.ecs_asg[0m will be created[0m[0m
+[0m  [32m+[0m[0m resource "aws_autoscaling_group" "ecs_asg" {
+      [32m+[0m [0m[1m[0marn[0m[0m                       = (known after apply)
+      [32m+[0m [0m[1m[0mavailability_zones[0m[0m        = (known after apply)
+      [32m+[0m [0m[1m[0mdefault_cooldown[0m[0m          = (known after apply)
+      [32m+[0m [0m[1m[0mdesired_capacity[0m[0m          = 0
+      [32m+[0m [0m[1m[0mforce_delete[0m[0m              = false
+      [32m+[0m [0m[1m[0mforce_delete_warm_pool[0m[0m    = false
+      [32m+[0m [0m[1m[0mhealth_check_grace_period[0m[0m = 300
+      [32m+[0m [0m[1m[0mhealth_check_type[0m[0m         = (known after apply)
+      [32m+[0m [0m[1m[0mid[0m[0m                        = (known after apply)
+      [32m+[0m [0m[1m[0mmax_size[0m[0m                  = 3
+      [32m+[0m [0m[1m[0mmetrics_granularity[0m[0m       = "1Minute"
+      [32m+[0m [0m[1m[0mmin_size[0m[0m                  = 1
+      [32m+[0m [0m[1m[0mname[0m[0m                      = "rc-test-cluster-1-ecs-autoscaling-group"
+      [32m+[0m [0m[1m[0mname_prefix[0m[0m               = (known after apply)
+      [32m+[0m [0m[1m[0mprotect_from_scale_in[0m[0m     = true
+      [32m+[0m [0m[1m[0mservice_linked_role_arn[0m[0m   = (known after apply)
+      [32m+[0m [0m[1m[0mvpc_zone_identifier[0m[0m       = [
+          [32m+[0m [0m"subnet-0070927cb9c75d1e0",
+          [32m+[0m [0m"subnet-032a8161524714b74",
+          [32m+[0m [0m"subnet-0635e25e54d22f7f8",
+          [32m+[0m [0m"subnet-07b9c933c6d9610e2",
+        ]
+      [32m+[0m [0m[1m[0mwait_for_capacity_timeout[0m[0m = "10m"
+
+      [32m+[0m [0mlaunch_template {
+          [32m+[0m [0m[1m[0mid[0m[0m      = (known after apply)
+          [32m+[0m [0m[1m[0mname[0m[0m    = (known after apply)
+          [32m+[0m [0m[1m[0mversion[0m[0m = "$Latest"
+        }
+
+      [32m+[0m [0mtag {
+          [32m+[0m [0m[1m[0mkey[0m[0m                 = "Name"
+          [32m+[0m [0m[1m[0mpropagate_at_launch[0m[0m = true
+          [32m+[0m [0m[1m[0mvalue[0m[0m               = "rc-test-cluster-1"
+        }
+    }
+
+[1m  # module.ecs_cluster_1.aws_ecs_capacity_provider.ecs_asg_provider[0m will be created[0m[0m
+[0m  [32m+[0m[0m resource "aws_ecs_capacity_provider" "ecs_asg_provider" {
+      [32m+[0m [0m[1m[0marn[0m[0m      = (known after apply)
+      [32m+[0m [0m[1m[0mid[0m[0m       = (known after apply)
+      [32m+[0m [0m[1m[0mname[0m[0m     = "rc-test-cluster-1"
+      [32m+[0m [0m[1m[0mtags_all[0m[0m = (known after apply)
+
+      [32m+[0m [0mauto_scaling_group_provider {
+          [32m+[0m [0m[1m[0mauto_scaling_group_arn[0m[0m         = (known after apply)
+          [32m+[0m [0m[1m[0mmanaged_termination_protection[0m[0m = "ENABLED"
+
+          [32m+[0m [0mmanaged_scaling {
+              [32m+[0m [0m[1m[0minstance_warmup_period[0m[0m    = (known after apply)
+              [32m+[0m [0m[1m[0mmaximum_scaling_step_size[0m[0m = 1
+              [32m+[0m [0m[1m[0mminimum_scaling_step_size[0m[0m = 1
+              [32m+[0m [0m[1m[0mstatus[0m[0m                    = "ENABLED"
+              [32m+[0m [0m[1m[0mtarget_capacity[0m[0m           = 80
+            }
+        }
+    }
+
+[1m  # module.ecs_cluster_1.aws_ecs_cluster_capacity_providers.cluster[0m will be created[0m[0m
+[0m  [32m+[0m[0m resource "aws_ecs_cluster_capacity_providers" "cluster" {
+      [32m+[0m [0m[1m[0mcapacity_providers[0m[0m = [
+          [32m+[0m [0m"rc-test-cluster-1",
+        ]
+      [32m+[0m [0m[1m[0mcluster_name[0m[0m       = "rc-test-cluster-1"
+      [32m+[0m [0m[1m[0mid[0m[0m                 = (known after apply)
+
+      [32m+[0m [0mdefault_capacity_provider_strategy {
+          [32m+[0m [0m[1m[0mbase[0m[0m              = 0
+          [32m+[0m [0m[1m[0mcapacity_provider[0m[0m = "rc-test-cluster-1"
+          [32m+[0m [0m[1m[0mweight[0m[0m            = 1
+        }
+    }
+
+[1m  # module.ecs_cluster_1.aws_iam_instance_profile.ecs_instance_profile[0m will be created[0m[0m
+[0m  [32m+[0m[0m resource "aws_iam_instance_profile" "ecs_instance_profile" {
+      [32m+[0m [0m[1m[0marn[0m[0m         = (known after apply)
+      [32m+[0m [0m[1m[0mcreate_date[0m[0m = (known after apply)
+      [32m+[0m [0m[1m[0mid[0m[0m          = (known after apply)
+      [32m+[0m [0m[1m[0mname[0m[0m        = "rc-test-cluster-1-ecs-instance-profile"
+      [32m+[0m [0m[1m[0mpath[0m[0m        = "/"
+      [32m+[0m [0m[1m[0mrole[0m[0m        = "rc-test-cluster-1-ecs-instance-role"
+      [32m+[0m [0m[1m[0mtags_all[0m[0m    = (known after apply)
+      [32m+[0m [0m[1m[0munique_id[0m[0m   = (known after apply)
+    }
+
+[1m  # module.ecs_cluster_1.aws_iam_role.ecs_instance_role[0m will be created[0m[0m
+[0m  [32m+[0m[0m resource "aws_iam_role" "ecs_instance_role" {
+      [32m+[0m [0m[1m[0marn[0m[0m                   = (known after apply)
+      [32m+[0m [0m[1m[0massume_role_policy[0m[0m    = jsonencode(
+            {
+              [32m+[0m [0mStatement = [
+                  [32m+[0m [0m{
+                      [32m+[0m [0mAction    = "sts:AssumeRole"
+                      [32m+[0m [0mEffect    = "Allow"
+                      [32m+[0m [0mPrincipal = {
+                          [32m+[0m [0mService = "ec2.amazonaws.com"
+                        }
+                    },
+                ]
+              [32m+[0m [0mVersion   = "2012-10-17"
+            }
+        )
+      [32m+[0m [0m[1m[0mcreate_date[0m[0m           = (known after apply)
+      [32m+[0m [0m[1m[0mforce_detach_policies[0m[0m = false
+      [32m+[0m [0m[1m[0mid[0m[0m                    = (known after apply)
+      [32m+[0m [0m[1m[0mmanaged_policy_arns[0m[0m   = [
+          [32m+[0m [0m"arn:aws:iam::aws:policy/AmazonSSMManagedInstanceCore",
+          [32m+[0m [0m"arn:aws:iam::aws:policy/CloudWatchAgentServerPolicy",
+          [32m+[0m [0m"arn:aws:iam::aws:policy/service-role/AmazonEC2ContainerServiceforEC2Role",
+        ]
+      [32m+[0m [0m[1m[0mmax_session_duration[0m[0m  = 3600
+      [32m+[0m [0m[1m[0mname[0m[0m                  = "rc-test-cluster-1-ecs-instance-role"
+      [32m+[0m [0m[1m[0mname_prefix[0m[0m           = (known after apply)
+      [32m+[0m [0m[1m[0mpath[0m[0m                  = "/"
+      [32m+[0m [0m[1m[0mtags_all[0m[0m              = (known after apply)
+      [32m+[0m [0m[1m[0munique_id[0m[0m             = (known after apply)
+
+      [32m+[0m [0minline_policy {
+          [32m+[0m [0m[1m[0mname[0m[0m   = (known after apply)
+          [32m+[0m [0m[1m[0mpolicy[0m[0m = (known after apply)
+        }
+    }
+
+[1m  # module.ecs_cluster_1.aws_iam_role.ecs_robot_task_role[0m will be created[0m[0m
+[0m  [32m+[0m[0m resource "aws_iam_role" "ecs_robot_task_role" {
+      [32m+[0m [0m[1m[0marn[0m[0m                   = (known after apply)
+      [32m+[0m [0m[1m[0massume_role_policy[0m[0m    = jsonencode(
+            {
+              [32m+[0m [0mStatement = [
+                  [32m+[0m [0m{
+                      [32m+[0m [0mAction    = "sts:AssumeRole"
+                      [32m+[0m [0mEffect    = "Allow"
+                      [32m+[0m [0mPrincipal = {
+                          [32m+[0m [0mService = "ecs-tasks.amazonaws.com"
+                        }
+                    },
+                ]
+              [32m+[0m [0mVersion   = "2012-10-17"
+            }
+        )
+      [32m+[0m [0m[1m[0mcreate_date[0m[0m           = (known after apply)
+      [32m+[0m [0m[1m[0mforce_detach_policies[0m[0m = false
+      [32m+[0m [0m[1m[0mid[0m[0m                    = (known after apply)
+      [32m+[0m [0m[1m[0mmanaged_policy_arns[0m[0m   = (known after apply)
+      [32m+[0m [0m[1m[0mmax_session_duration[0m[0m  = 3600
+      [32m+[0m [0m[1m[0mname[0m[0m                  = "rc-test-cluster-1-robot-role"
+      [32m+[0m [0m[1m[0mname_prefix[0m[0m           = (known after apply)
+      [32m+[0m [0m[1m[0mpath[0m[0m                  = "/"
+      [32m+[0m [0m[1m[0mtags_all[0m[0m              = (known after apply)
+      [32m+[0m [0m[1m[0munique_id[0m[0m             = (known after apply)
+
+      [32m+[0m [0minline_policy {
+          [32m+[0m [0m[1m[0mname[0m[0m   = (known after apply)
+          [32m+[0m [0m[1m[0mpolicy[0m[0m = (known after apply)
+        }
+    }
+
+[1m  # module.ecs_cluster_1.aws_iam_role.ecs_task_execution_role[0m will be created[0m[0m
+[0m  [32m+[0m[0m resource "aws_iam_role" "ecs_task_execution_role" {
+      [32m+[0m [0m[1m[0marn[0m[0m                   = (known after apply)
+      [32m+[0m [0m[1m[0massume_role_policy[0m[0m    = jsonencode(
+            {
+              [32m+[0m [0mStatement = [
+                  [32m+[0m [0m{
+                      [32m+[0m [0mAction    = "sts:AssumeRole"
+                      [32m+[0m [0mEffect    = "Allow"
+                      [32m+[0m [0mPrincipal = {
+                          [32m+[0m [0mService = "ecs-tasks.amazonaws.com"
+                        }
+                    },
+                ]
+              [32m+[0m [0mVersion   = "2012-10-17"
+            }
+        )
+      [32m+[0m [0m[1m[0mcreate_date[0m[0m           = (known after apply)
+      [32m+[0m [0m[1m[0mforce_detach_policies[0m[0m = false
+      [32m+[0m [0m[1m[0mid[0m[0m                    = (known after apply)
+      [32m+[0m [0m[1m[0mmanaged_policy_arns[0m[0m   = [
+          [32m+[0m [0m"arn:aws:iam::aws:policy/service-role/AmazonECSTaskExecutionRolePolicy",
+        ]
+      [32m+[0m [0m[1m[0mmax_session_duration[0m[0m  = 3600
+      [32m+[0m [0m[1m[0mname[0m[0m                  = "rc-test-cluster-1-ecs-task-execution-role"
+      [32m+[0m [0m[1m[0mname_prefix[0m[0m           = (known after apply)
+      [32m+[0m [0m[1m[0mpath[0m[0m                  = "/"
+      [32m+[0m [0m[1m[0mtags_all[0m[0m              = (known after apply)
+      [32m+[0m [0m[1m[0munique_id[0m[0m             = (known after apply)
+
+      [32m+[0m [0minline_policy {
+          [32m+[0m [0m[1m[0mname[0m[0m   = "create-log-groups-policy"
+          [32m+[0m [0m[1m[0mpolicy[0m[0m = jsonencode(
+                {
+                  [32m+[0m [0mStatement = [
+                      [32m+[0m [0m{
+                          [32m+[0m [0mAction   = [
+                              [32m+[0m [0m"logs:CreateLogGroup",
+                            ]
+                          [32m+[0m [0mEffect   = "Allow"
+                          [32m+[0m [0mResource = "*"
+                        },
+                    ]
+                  [32m+[0m [0mVersion   = "2012-10-17"
+                }
+            )
+        }
+    }
+
+[1m  # module.ecs_cluster_1.aws_iam_role.worker_provisioner_role[0m will be created[0m[0m
+[0m  [32m+[0m[0m resource "aws_iam_role" "worker_provisioner_role" {
+      [32m+[0m [0m[1m[0marn[0m[0m                   = (known after apply)
+      [32m+[0m [0m[1m[0massume_role_policy[0m[0m    = jsonencode(
+            {
+              [32m+[0m [0mStatement = [
+                  [32m+[0m [0m{
+                      [32m+[0m [0mAction    = "sts:AssumeRole"
+                      [32m+[0m [0mEffect    = "Allow"
+                      [32m+[0m [0mPrincipal = {
+                          [32m+[0m [0mAWS = [
+                              [32m+[0m [0m"arn:aws:iam::924259784339:root",
+                            ]
+                        }
+                    },
+                ]
+              [32m+[0m [0mVersion   = "2012-10-17"
+            }
+        )
+      [32m+[0m [0m[1m[0mcreate_date[0m[0m           = (known after apply)
+      [32m+[0m [0m[1m[0mforce_detach_policies[0m[0m = false
+      [32m+[0m [0m[1m[0mid[0m[0m                    = (known after apply)
+      [32m+[0m [0m[1m[0mmanaged_policy_arns[0m[0m   = (known after apply)
+      [32m+[0m [0m[1m[0mmax_session_duration[0m[0m  = 3600
+      [32m+[0m [0m[1m[0mname[0m[0m                  = "rc-test-cluster-1-provisioner-role"
+      [32m+[0m [0m[1m[0mname_prefix[0m[0m           = (known after apply)
+      [32m+[0m [0m[1m[0mpath[0m[0m                  = "/"
+      [32m+[0m [0m[1m[0mtags_all[0m[0m              = (known after apply)
+      [32m+[0m [0m[1m[0munique_id[0m[0m             = (known after apply)
+
+      [32m+[0m [0minline_policy {
+          [32m+[0m [0m[1m[0mname[0m[0m   = "ecs-policy"
+          [32m+[0m [0m[1m[0mpolicy[0m[0m = jsonencode(
+                {
+                  [32m+[0m [0mStatement = [
+                      [32m+[0m [0m{
+                          [32m+[0m [0mAction   = [
+                              [32m+[0m [0m"ecs:RunTask",
+                              [32m+[0m [0m"ecs:StartTask",
+                              [32m+[0m [0m"ecs:DescribeClusters",
+                              [32m+[0m [0m"ecs:ListTasks",
+                              [32m+[0m [0m"ecs:RegisterTaskDefinition",
+                              [32m+[0m [0m"ecs:DeregisterTaskDefinition",
+                              [32m+[0m [0m"ecs:DescribeTaskDefinition",
+                              [32m+[0m [0m"ecs:ListContainerInstances",
+                              [32m+[0m [0m"ecs:StopTask",
+                              [32m+[0m [0m"ecs:DescribeTasks",
+                            ]
+                          [32m+[0m [0mEffect   = "Allow"
+                          [32m+[0m [0mResource = "*"
+                        },
+                    ]
+                  [32m+[0m [0mVersion   = "2012-10-17"
+                }
+            )
+        }
+      [32m+[0m [0minline_policy {
+          [32m+[0m [0m[1m[0mname[0m[0m   = "iam-policy"
+          [32m+[0m [0m[1m[0mpolicy[0m[0m = (known after apply)
+        }
+    }
+
+[1m  # module.ecs_cluster_1.aws_launch_template.ecs_instance_template[0m will be created[0m[0m
+[0m  [32m+[0m[0m resource "aws_launch_template" "ecs_instance_template" {
+      [32m+[0m [0m[1m[0marn[0m[0m                    = (known after apply)
+      [32m+[0m [0m[1m[0mdefault_version[0m[0m        = (known after apply)
+      [32m+[0m [0m[1m[0mid[0m[0m                     = (known after apply)
+      [32m+[0m [0m[1m[0mimage_id[0m[0m               = "ami-0345b85b1018c3e68"
+      [32m+[0m [0m[1m[0minstance_type[0m[0m          = "m5ad.2xlarge"
+      [32m+[0m [0m[1m[0mlatest_version[0m[0m         = (known after apply)
+      [32m+[0m [0m[1m[0mname[0m[0m                   = "rc-test-cluster-1-ecs-instance"
+      [32m+[0m [0m[1m[0mname_prefix[0m[0m            = (known after apply)
+      [32m+[0m [0m[1m[0mtags_all[0m[0m               = (known after apply)
+      [32m+[0m [0m[1m[0mupdate_default_version[0m[0m = true
+      [32m+[0m [0m[1m[0muser_data[0m[0m              = "Q29udGVudC1UeXBlOiBtdWx0aXBhcnQvbWl4ZWQ7IGJvdW5kYXJ5PSI9PUJPVU5EQVJZPT0iCk1JTUUtVmVyc2lvbjogMS4wCgotLT09Qk9VTkRBUlk9PQpNSU1FLVZlcnNpb246IDEuMApDb250ZW50LVR5cGU6IHRleHQvY2xvdWQtYm9vdGhvb2s7IGNoYXJzZXQ9InVzLWFzY2lpIgojIS9iaW4vYmFzaAoKIyBJbnN0YWxsIHNlY3VyaXR5IHVwZGF0ZXMKeXVtIHVwZGF0ZS1taW5pbWFsIC0tc2VjdXJpdHkgLXkKCiMgU2V0IGlwdGFibGVzIGNvbmZpZ3VyYXRpb24gZm9yIGJsb2NraW5nIHRoZSBpbnN0YW5jZSBtZXRhZGF0YSBmcm9tIGRvY2tlciBjb250YWluZXJzLAojIGFjY29yZGluZyB0byB0aGUgZ3VpZGUgaGVyZTogaHR0cHM6Ly9hd3MuYW1hem9uLmNvbS9wcmVtaXVtc3VwcG9ydC9rbm93bGVkZ2UtY2VudGVyL2Vjcy1jb250YWluZXItZWMyLW1ldGFkYXRhLwoKeXVtIGluc3RhbGwgaXB0YWJsZXMtc2VydmljZXMgLXkKCmNhdCA8PCdFT0YnID4gL2V0Yy9zeXNjb25maWcvaXB0YWJsZXMKKmZpbHRlcgo6RE9DS0VSLVVTRVIgLSBbMDowXQotQSBET0NLRVItVVNFUiAtZCAxNjkuMjU0LjE2OS4yNTQvMzIgLWogRFJPUApDT01NSVQKRU9GCgpzeXN0ZW1jdGwgZW5hYmxlIGlwdGFibGVzCnN5c3RlbWN0bCBzdGFydCBpcHRhYmxlcwoKLS09PUJPVU5EQVJZPT0KTUlNRS1WZXJzaW9uOiAxLjAKQ29udGVudC1UeXBlOiB0ZXh0L2Nsb3VkLWJvb3Rob29rOyBjaGFyc2V0PSJ1cy1hc2NpaSIKIyEvYmluL2Jhc2gKCiMgRUNTIGNvbmZpZ3VyYXRpb24KY2xvdWQtaW5pdC1wZXIgaW5zdGFuY2UgZWNzX29wdGlvbnMgY2F0IDw8J0VPRicgPiAvZXRjL2Vjcy9lY3MuY29uZmlnCkVDU19DTFVTVEVSPXJjLXRlc3QtY2x1c3Rlci0xCkVDU19FTkdJTkVfVEFTS19DTEVBTlVQX1dBSVRfRFVSQVRJT049MzBtCkVDU19SRVNFUlZFRF9NRU1PUlk9MjU2CkVDU19BVkFJTEFCTEVfTE9HR0lOR19EUklWRVJTPVsianNvbi1maWxlIiwic3lzbG9nIiwiYXdzbG9ncyIsIm5vbmUiXQpFQ1NfRElTQUJMRV9QUklWSUxFR0VEPXRydWUKRUNTX0FXU1ZQQ19CTE9DS19JTURTPXRydWUKRUNTX0lNQUdFX1BVTExfQkVIQVZJT1I9cHJlZmVyLWNhY2hlZApFT0YKCi0tPT1CT1VOREFSWT09LS0K"
+
+      [32m+[0m [0miam_instance_profile {
+          [32m+[0m [0m[1m[0marn[0m[0m = (known after apply)
+        }
+
+      [32m+[0m [0mmetadata_options {
+          [32m+[0m [0m[1m[0mhttp_endpoint[0m[0m               = (known after apply)
+          [32m+[0m [0m[1m[0mhttp_protocol_ipv6[0m[0m          = (known after apply)
+          [32m+[0m [0m[1m[0mhttp_put_response_hop_limit[0m[0m = (known after apply)
+          [32m+[0m [0m[1m[0mhttp_tokens[0m[0m                 = (known after apply)
+          [32m+[0m [0m[1m[0minstance_metadata_tags[0m[0m      = (known after apply)
+        }
+
+      [32m+[0m [0mmonitoring {
+          [32m+[0m [0m[1m[0menabled[0m[0m = true
+        }
+
+      [32m+[0m [0mnetwork_interfaces {
+          [32m+[0m [0m[1m[0massociate_public_ip_address[0m[0m = "false"
+          [32m+[0m [0m[1m[0mdelete_on_termination[0m[0m       = "true"
+          [32m+[0m [0m[1m[0msecurity_groups[0m[0m             = (known after apply)
+        }
+    }
+
+[1m  # module.ecs_cluster_1.aws_security_group.ecs_instance[0m will be created[0m[0m
+[0m  [32m+[0m[0m resource "aws_security_group" "ecs_instance" {
+      [32m+[0m [0m[1m[0marn[0m[0m                    = (known after apply)
+      [32m+[0m [0m[1m[0mdescription[0m[0m            = "Security group for ECS instances"
+      [32m+[0m [0m[1m[0megress[0m[0m                 = [
+          [32m+[0m [0m{
+              [32m+[0m [0mcidr_blocks      = [
+                  [32m+[0m [0m"0.0.0.0/0",
+                ]
+              [32m+[0m [0mdescription      = ""
+              [32m+[0m [0mfrom_port        = 0
+              [32m+[0m [0mipv6_cidr_blocks = []
+              [32m+[0m [0mprefix_list_ids  = []
+              [32m+[0m [0mprotocol         = "-1"
+              [32m+[0m [0msecurity_groups  = []
+              [32m+[0m [0mself             = false
+              [32m+[0m [0mto_port          = 0
+            },
+        ]
+      [32m+[0m [0m[1m[0mid[0m[0m                     = (known after apply)
+      [32m+[0m [0m[1m[0mingress[0m[0m                = (known after apply)
+      [32m+[0m [0m[1m[0mname[0m[0m                   = "rc-test-cluster-1-ecs-instance"
+      [32m+[0m [0m[1m[0mname_prefix[0m[0m            = (known after apply)
+      [32m+[0m [0m[1m[0mowner_id[0m[0m               = (known after apply)
+      [32m+[0m [0m[1m[0mrevoke_rules_on_delete[0m[0m = false
+      [32m+[0m [0m[1m[0mtags[0m[0m                   = {
+          [32m+[0m [0m"Name" = "rc-test-cluster-1-ecs-instance"
+        }
+      [32m+[0m [0m[1m[0mtags_all[0m[0m               = {
+          [32m+[0m [0m"Name" = "rc-test-cluster-1-ecs-instance"
+        }
+      [32m+[0m [0m[1m[0mvpc_id[0m[0m                 = "vpc-040e43dcc2a463f94"
+    }
+
+[1m  # module.ecs_cluster_1.aws_ssm_parameter.configuration_out[0m will be created[0m[0m
+[0m  [32m+[0m[0m resource "aws_ssm_parameter" "configuration_out" {
+      [32m+[0m [0m[1m[0marn[0m[0m            = (known after apply)
+      [32m+[0m [0m[1m[0mdata_type[0m[0m      = (known after apply)
+      [32m+[0m [0m[1m[0mid[0m[0m             = (known after apply)
+      [32m+[0m [0m[1m[0minsecure_value[0m[0m = (known after apply)
+      [32m+[0m [0m[1m[0mkey_id[0m[0m         = (known after apply)
+      [32m+[0m [0m[1m[0mname[0m[0m           = "rc-test-cluster-1-configuration"
+      [32m+[0m [0m[1m[0mtags_all[0m[0m       = (known after apply)
+      [32m+[0m [0m[1m[0mtier[0m[0m           = (known after apply)
+      [32m+[0m [0m[1m[0mtype[0m[0m           = "String"
+      [32m+[0m [0m[1m[0mvalue[0m[0m          = (sensitive value)
+      [32m+[0m [0m[1m[0mversion[0m[0m        = (known after apply)
+    }
+
+[0m[1mPlan:[0m 12 to add, 0 to change, 0 to destroy.
+[0m[33m╷[0m[0m
+[33m│[0m [0m[1m[33mWarning: [0m[0m[1mDeprecated Resource[0m
+[33m│[0m [0m
+[33m│[0m [0m[0m  with module.ecs_cluster_1.data.aws_subnet_ids.current_subnets,
+[33m│[0m [0m  on modules/ecs-cluster/ecs.tf line 26, in data "aws_subnet_ids" "current_subnets":
+[33m│[0m [0m  26: data "aws_subnet_ids" "current_subnets" [4m{[0m[0m
+[33m│[0m [0m
+[33m│[0m [0mThe aws_subnet_ids data source has been deprecated and will be removed in a future version. Use the aws_subnets data source instead:
+[33m│[0m [0mhttps://registry.terraform.io/providers/hashicorp/aws/latest/docs/data-sources/subnets
+[33m│[0m [0m
+[33m│[0m [0m(and one more similar warning elsewhere)
+[33m╵[0m[0m
+[90m
+─────────────────────────────────────────────────────────────────────────────[0m
+
+Note: You didn't use the -out option to save this plan, so Terraform can't
+guarantee to take exactly these actions if you run "terraform apply" now.

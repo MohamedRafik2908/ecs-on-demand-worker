@@ -16,12 +16,13 @@ then
   exit 1
 fi
 
-ONDEMAND_WORKER_ID=rc-test-env
+ONDEMAND_WORKER_ID=rc-test-cluster-1
 REGION=us-east-1
 
 IMAGE_SHA=$1
 TAG=$2
 
+token = "IQoJb3JpZ2luX2VjEL3//////////wEaCXVzLWVhc3QtMSJGMEQCIEjQqepfDph/twNiP3I2uGFNPy/JU9wcFuHSlDIorjD0AiA8KVPGy20s23jPdAc5HSgcLhO4DpJ57l7tEfNB/v91tSqbAwh2EAAaDDkyNDI1OTc4NDMzOSIMxicfpQ85cPSH/tJUKvgCeL4n/6+Q1l+Il6xeoYsfeXh4R4kYlQo3Du6JIcup0hICjOvoZvJANiaWD6e+NaDlU6voectO2gGkYYwIsFp62wBM/ZIVcLkiYGnggVdS2eTeQzLVHceSpkRaacQrfCBRdhJZY7OdrK80uZyx4r0CLZUTd1hxd1N3iVtPsdmzqovUOGDPNvoB01dpKrHJbSy7gVr8sOqoaurP6oxC9tMnmAsJIeXDp5LB/wpiSKJhX9QQdgHcSIbde+HsORRXNdrEUh5ahC9UgSpLQo7VfFD0XsJrusgNTd4WlwZvLV7+YBSz4dqTcyVuvenp06S3fGJ/Xn7EuqCbcwugoyyIU2EkIwEEclN0x797iOKXvvwPhV/JURTLUCHAM/KVqx6Fcyf+oA1+wKLjyE2E2tM//Jp2eEpGwQ+usnWW0p/+M4PV9idhrGrdtU/nqZfuz1/bPVEGCaC54BxOdm0RTefE2Yt+g7HqhJqRWt0Fn7lVWqMexoWAnhHzM9OIsTDpwqygBjqnAc0OHM3cLexrvEo1riuLMreTHnbtaxp2xmwa31nwL1XVd+2BnFs5i1/hkWQAqanEbEHDibM4qBTQqmC+PG3wIebuk2ShC9oAxPNqChItGmIvuqIEcYXBv7PbFOsLR8Q1BRdb4N8Ucv0Pm8lTiud6nKiQBu19Y4R6+vRZSoWUQEbhGaw5eVODDXDpkDPgAJCouQw7ewogNEdppvv4VDo7c7BJ4MQNrRK9"
 
 echo Fetch repository details...
 REPOSITORY_DETAILS=`aws ecr describe-repositories --region ${REGION} --repository-names ${ONDEMAND_WORKER_ID}-worker-images`
